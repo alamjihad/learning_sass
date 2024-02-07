@@ -1,0 +1,147 @@
+// color variavble declaration
+$header-bgcolor : #ffab73;
+$main-bgcolor : #ffd384;
+$footer-bgcolor : #ffaec0;
+$para-fontsize: 15px;
+
+$colors: (
+  color1: red,
+  color2: green,
+  color3: blue
+);
+
+@each $key, $color in $colors {
+
+  // red, green, blue {
+  .#{$color}-text {
+    color: $color;
+  }
+}
+
+/*
+  browser reset code
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@mixin setFontSize($value) {
+  @if ($value ==small) {
+    font-size: 12px;
+  }
+
+  @else if($value==medium) {
+    font-size: 16px;
+  }
+
+  @else if ($value==large) {
+    font-size: 20px;
+  }
+
+  @else {
+    font-size: none;
+  }
+}
+
+header {
+  background: $header-bgcolor;
+}
+
+// extend
+
+.btn {
+  border: none;
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#btn-download {
+  @extend .btn;
+  background-color: red;
+}
+
+#learn-more {
+  @extend .btn;
+  background-color: green;
+}
+
+// mixin and include
+@mixin para-style ($size, $style) {
+  font-size: $size;
+  text-align: $style;
+  margin: 10px 0;
+}
+
+#about p {
+  @include para-style(18px, left);
+}
+
+#education p {
+  @include para-style;
+}
+
+// nav styling
+nav {
+  margin-top: 15px;
+
+  ul {
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+      margin: 0 15px;
+
+      a {
+        display: inline-block;
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+        transition: .4s;
+        border-radius: 5px;
+        @include setFontSize((small));
+      }
+
+      a:hover {
+        background-color: black;
+      }
+    }
+  }
+}
+
+main {
+  background: $main-bgcolor;
+}
+
+#about p {
+  font-size: $para-fontsize;
+}
+
+footer {
+  background: $footer-bgcolor;
+}
+
+// @for $i from 1 to 13 {                       // for loop
+//   .col-#{$i} {
+//     width: 100% / 12 * $i
+//   }
+// }
+
+@while $i < 13 {
+
+  // while loop
+  .col-#{$i} {
+    width: 100% / 12 * $i
+  }
+
+  $i: $i+1;
+}
+
+.row::after {
+  clear: both;
+  content: "";
+  display: table;
+}
